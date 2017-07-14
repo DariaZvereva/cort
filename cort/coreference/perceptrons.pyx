@@ -188,7 +188,7 @@ cdef class Perceptron:
 					 cons_labels,
 					 cons_scores,
 					 is_consistent) = self.argmax(substructure,
-												  arc_information)
+												  arc_information, weight_mask) #new variable
 
 					if not is_consistent:
 						self.__update(cons_arcs,
@@ -198,7 +198,8 @@ cdef class Perceptron:
 									  arc_information,
 									  counter,
 									  cached_priors,
-									  cached_weights)
+									  cached_weights, 
+									  weight_mask) #new variable
 
 						incorrect += 1
 						
@@ -319,7 +320,8 @@ cdef class Perceptron:
                                numeric_features,
                                numeric_vals,
                                1.0,
-                               1.0*counter)
+                               1.0*counter, 
+							   weight_mask) #new variable
 
                 self.priors[label] += 1
                 cached_priors[label] += counter
@@ -334,7 +336,8 @@ cdef class Perceptron:
                                numeric_features,
                                numeric_vals,
                                -1.0,
-                               -1.0*counter)
+                               -1.0*counter,
+							   weight_mask) #new variable
 
                 self.priors[label] -= 1
                 cached_priors[label] -= counter
@@ -349,7 +352,8 @@ cdef class Perceptron:
                                numeric_features,
                                numeric_vals,
                                1.0,
-                               1.0*counter)
+                               1.0*counter,
+							   weight_mask) #new variable
 
             for arc in bad_arcs:
                 nonnumeric_features, numeric_features, numeric_vals = \
@@ -361,7 +365,8 @@ cdef class Perceptron:
                                numeric_features,
                                numeric_vals,
                                -1.0,
-                               -1.0*counter)
+                               -1.0*counter,
+							   weight_mask) #new variable
 							   
 
     def get_labels(self):
@@ -444,7 +449,8 @@ cdef class Perceptron:
                                       costs[self.label_to_index[label]],
                                       nonnumeric_features,
                                       numeric_features,
-                                      numeric_vals)
+                                      numeric_vals, 
+									  weight_mask) #new variable
 
             if score > max_val:
                 best = arc
