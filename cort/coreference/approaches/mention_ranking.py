@@ -44,7 +44,7 @@ References:
 
 
 from cort.coreference import perceptrons
-
+import numpy
 
 __author__ = 'martscsn'
 
@@ -140,8 +140,10 @@ class RankingPerceptron(perceptrons.Perceptron):
                 - **is_consistent** (*bool*): whether the highest-scoring
                   antecedent decision is consistent with the gold information.
         """
+
         best, max_val, best_cons, max_cons, best_is_consistent = \
             self.find_best_arcs(substructure, arc_information, weight_mask) #new variable
+
 
         return (
             [best],
@@ -202,6 +204,7 @@ class RankingPerceptronClosest(perceptrons.Perceptron):
                 - **is_consistent** (*bool*): whether the highest-scoring
                   antecedent decision is consistent with the gold information.
         """
+
         max_val = float("-inf")
         best = None
 

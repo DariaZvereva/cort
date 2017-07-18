@@ -153,8 +153,8 @@ class MentionPairsPerceptron(perceptrons.Perceptron):
         arc = substructure[0]
         consistent = arc_information[arc][2]
 
-        score_coref = self.score_arc(arc, arc_information, "+", weight_mask) #new variable
-        score_non_coref = self.score_arc(arc, arc_information, "-", weight_mask) #new variable
+        score_coref = self.score_arc(arc, arc_information, weight_mask, "+") #new variable
+        score_non_coref = self.score_arc(arc, arc_information, weight_mask, "-") #new variable
 
         if score_coref >= score_non_coref:
             label = "+"
